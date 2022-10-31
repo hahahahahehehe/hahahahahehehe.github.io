@@ -44,7 +44,7 @@
 <meta property="og:image" content="http://example.com/images/image-20221020172108625.png">
 <meta property="og:image" content="http://example.com/images/image-20221020172239257.png">
 <meta property="article:published_time" content="2022-10-19T19:32:55.000Z">
-<meta property="article:modified_time" content="2022-10-31T07:25:03.060Z">
+<meta property="article:modified_time" content="2022-10-31T07:38:01.969Z">
 <meta property="article:author" content="liuhaha">
 <meta property="article:tag" content="hexo">
 <meta property="article:tag" content="github Pages">
@@ -213,103 +213,6 @@
 </li>
 </ul>
 <h2 id="1-2、整体流程"><a href="#1-2、整体流程" class="headerlink" title="1.2、整体流程"></a>1.2、整体流程</h2><p><img src="/../images/image-20221020142737473.png" alt="流程图"></p>
-<span id="more"></span>
-
-<h1 id="二、环境搭建"><a href="#二、环境搭建" class="headerlink" title="二、环境搭建"></a>二、环境搭建</h1><h2 id="2-1-需安装组件"><a href="#2-1-需安装组件" class="headerlink" title="2.1 需安装组件"></a>2.1 需安装组件</h2><ol>
-<li>node.js</li>
-<li>git</li>
-<li>hexo</li>
-</ol>
-<h2 id="2-2-安装node-js"><a href="#2-2-安装node-js" class="headerlink" title="2.2 安装node.js"></a>2.2 安装node.js</h2><p>因为hexo是基于node.js环境，而且后续需要使用博客的主题等插件，也可以通过node.js自带的npm很方便的下载安装，所以我们首先得安装node.js环境</p>
-<h3 id="2-2-1-进入node-js官网下载"><a href="#2-2-1-进入node-js官网下载" class="headerlink" title="2.2.1 进入node.js官网下载"></a>2.2.1 进入<a target="_blank" rel="noopener" href="https://nodejs.org/en/">node.js官网</a>下载</h3><p><img src="/../images/image-20221020145019549.png" alt="image-20221020145019549"></p>
-<p>下载之后一直next往下安装就行了</p>
-<h3 id="2-2-2-验证安装结果"><a href="#2-2-2-验证安装结果" class="headerlink" title="2.2.2 验证安装结果"></a>2.2.2 验证安装结果</h3><p>win+R进入cmd窗口，执行<code>node -v</code>和<code>npm -v</code>,有版本显示，则node.js安装完成</p>
-<p><img src="/../images/image-20221020145422807.png" alt="image-20221020145422807"></p>
-<h2 id="2-3-安装git"><a href="#2-3-安装git" class="headerlink" title="2.3 安装git"></a>2.3 安装git</h2><h3 id="2-3-1-进入git官网下载安装"><a href="#2-3-1-进入git官网下载安装" class="headerlink" title="2.3.1 进入git官网下载安装"></a>2.3.1 进入<a target="_blank" rel="noopener" href="https://git-scm.com/">git官网</a>下载安装</h3><p><img src="/../images/image-20221020145654730.png" alt="image-20221020145654730"></p>
-<p>点击next安装完成</p>
-<h3 id="2-3-2-验证"><a href="#2-3-2-验证" class="headerlink" title="2.3.2 验证"></a>2.3.2 验证</h3><p>进入cmd，执行<code>git --version</code>，输出git版本则表示安装成功</p>
-<p><img src="/../images/image-20221020153618788.png" alt="image-20221020153618788"></p>
-<h3 id="2-3-3-git配置"><a href="#2-3-3-git配置" class="headerlink" title="2.3.3 git配置"></a>2.3.3 git配置</h3><p>1、鼠标右键，点击git bash,进入bash界面</p>
-<p><img src="/../images/image-20221020153835841.png" alt="image-20221020153835841"></p>
-<p>2、配置git的客户端的用户名和邮箱</p>
-<p>加上–global对整个git客户端生效，不加的话只对当前的项目生效</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;github用户名&quot;</span><br><span class="line">git config --global user.email &quot;github邮箱&quot;</span><br></pre></td></tr></table></figure>
-
-<p>3、配置本机的公私钥</p>
-<p>在git客户端执行命令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;github邮箱&quot;</span><br></pre></td></tr></table></figure>
-
-<p>然后一直回车，这行完成后会在当前用户家目录c:&#x2F;User&#x2F;用户名&#x2F;.ssh目录下生成公私钥文件</p>
-<p><img src="/../images/image-20221020154642892.png" alt="image-20221020154642892"></p>
-<p>私钥自己流程，公钥复制到github上来进行免密连接</p>
-<p>4、登录进入github，点击setting</p>
-<p><img src="/../images/image-20221020155052867.png" alt="image-20221020155052867"></p>
-<p>5、点击<code>SSH and GPG keys</code>,进入ssh设置界面，然后点击<code>new SSH key</code></p>
-<p><img src="/../images/image-20221020155546675.png" alt="image-20221020155546675"></p>
-<p>将复制的公钥复制到key,Title自己随便填，然后点击Add SSH key就行了</p>
-<p><img src="/../images/image-20221020155704861.png" alt="image-20221020155704861"></p>
-<h2 id="2-4-安装hexo"><a href="#2-4-安装hexo" class="headerlink" title="2.4 安装hexo"></a>2.4 安装hexo</h2><p>hexo可以通过npm一键式安装</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-
-<p>node.js版本限制</p>
-<p><img src="/../images/image-20221020160045797.png" alt="image-20221020160045797"></p>
-<h2 id="2-5-配置Github-Pages"><a href="#2-5-配置Github-Pages" class="headerlink" title="2.5 配置Github Pages"></a>2.5 配置Github Pages</h2><h3 id="2-5-1-登录github新建仓库"><a href="#2-5-1-登录github新建仓库" class="headerlink" title="2.5.1 登录github新建仓库"></a>2.5.1 登录github新建仓库</h3><p><img src="/../images/image-20221020160240807.png" alt="image-20221020160240807"></p>
-<h3 id="2-5-2-配置仓库名称"><a href="#2-5-2-配置仓库名称" class="headerlink" title="2.5.2 配置仓库名称"></a>2.5.2 配置仓库名称</h3><p>仓库名称要写成github用户名.github.io，这是固定格式，Owner输入框内的就是用户名，比如Owner框里面的是zhangsan,则新建的仓库名必须叫zhangsan.github.io</p>
-<p><img src="/../images/image-20221020160954011.png" alt="image-20221020160954011"></p>
-<h3 id="2-5-3-设置github-pages"><a href="#2-5-3-设置github-pages" class="headerlink" title="2.5.3 设置github pages"></a>2.5.3 设置github pages</h3><p>1、进入上面新建的项目，点击项目的settings</p>
-<p><img src="/../images/image-20221020161344382.png" alt="image-20221020161344382"></p>
-<p>2、点击tab页的Pages</p>
-<p><img src="/../images/image-20221020162803951.png" alt="image-20221020162803951"></p>
-<p>可以看到Github Pages已配置完成</p>
-<h1 id="三、编写博客"><a href="#三、编写博客" class="headerlink" title="三、编写博客"></a>三、编写博客</h1><p>hexo官方文档<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">地址</a></p>
-<h2 id="3-1-、初始化hexo博客"><a href="#3-1-、初始化hexo博客" class="headerlink" title="3.1 、初始化hexo博客"></a>3.1 、初始化hexo博客</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init &lt;folder&gt;</span><br></pre></td></tr></table></figure>
-
-<p>初始化完成之后有以下文件生成，主要文件为</p>
-<p><img src="/../images/image-20221020163601605.png" alt="image-20221020163601605"></p>
-<h2 id="3-2、安装依赖"><a href="#3-2、安装依赖" class="headerlink" title="3.2、安装依赖"></a>3.2、安装依赖</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &lt;folder&gt;</span><br><span class="line">npm install //命令指定路径与package.json文件路径一致</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-3、新建博客"><a href="#3-3、新建博客" class="headerlink" title="3.3、新建博客"></a>3.3、新建博客</h2><p>可以通过以下命令来新建一篇文章</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../images/image-20221020164603452.png" alt="image-20221020164603452"></p>
-<p>我们可以在新建文章时指定布局，默认是<code>post</code>,就是_config.xml中的default_layout参数指定的。所以生成的文件实在__post底下,若是使用别的布局，则会在另外的文件夹下</p>
-<p>所谓的布局就是新建文章时，新增的md文件使用布局文件的模板</p>
-<p>如post.md内容为</p>
-<p><img src="/../images/image-20221020164418546.png" alt="image-20221020164418546"></p>
-<p>则使用post布局生成的md文件初始样式为</p>
-<p><img src="/../images/image-20221020164929773.png" alt="image-20221020164929773"></p>
-<p>也就是引用了scaffolds下的post.md的样式</p>
-<p>文章建完之后我们就可以编辑了,我们输入如下内容，并给当前文档打上hello标签</p>
-<p><img src="/../images/image-20221020165358243.png" alt="image-20221020165358243"></p>
-<h2 id="3-4-、生成博客"><a href="#3-4-、生成博客" class="headerlink" title="3.4 、生成博客"></a>3.4 、生成博客</h2><p>​	指定命令将source底下md文档生成静态文件，若是文档有额外的静态文件如图片，js，css等，可以放到source目录下，到时候会一并打到静态文件public处，这也是最终的博客</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g //将md生成html静态文件，也可以执行hexo generate</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../images/image-20221020170044706.png" alt="image-20221020170044706"></p>
-<p>后续GIthub Pages加载的就是public文件夹里面的静态资源</p>
-<h2 id="3-5-、hexo本地运行博客"><a href="#3-5-、hexo本地运行博客" class="headerlink" title="3.5 、hexo本地运行博客"></a>3.5 、hexo本地运行博客</h2><p>执行命令在本地预览博客样式,默认在4000端口</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../images/image-20221020170704155.png" alt="image-20221020170704155"></p>
-<p>访问之后可以看到demo文档已经显示，文档也打上了hello标签</p>
-<p><img src="/../images/image-20221020170911763.png" alt="image-20221020170911763"></p>
-<p>标签是用来筛选文档的，点击tags的hello，就会只出现我们设置的文档</p>
-<p><img src="/../images/image-20221020170959649.png" alt="image-20221020170959649"></p>
-<h2 id="3-6、-将项目部署到Github-Pages"><a href="#3-6、-将项目部署到Github-Pages" class="headerlink" title="3.6、 将项目部署到Github Pages"></a>3.6、 将项目部署到Github Pages</h2><h3 id="3-6-1-配置github路径"><a href="#3-6-1-配置github路径" class="headerlink" title="3.6.1 配置github路径"></a>3.6.1 配置github路径</h3><p>在项目根路径下的_config.xml中加上以下部署信息</p>
-<p>repository：之前配置的github pages仓库地址</p>
-<p>branch：分支</p>
-<p>我github的分支就是叫main,所以我写的是main,如果仓库分支是其它名称则需要写上相应的名称</p>
-<p><img src="/../images/image-20221020171530105.png" alt="image-20221020171530105"></p>
-<p><img src="/../images/image-20221020171344996.png" alt="image-20221020171344996"></p>
-<h3 id="3-6-2-将本地项目部署到github-pages上"><a href="#3-6-2-将本地项目部署到github-pages上" class="headerlink" title="3.6.2 将本地项目部署到github pages上"></a>3.6.2 将本地项目部署到github pages上</h3><p>执行命令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d //也可以写成hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>也可以直接执行<code>hexo generate --deploy</code>或<code>hexo deploy --generate</code>一步到位，也可以写成简写形式<code>hexo g -d</code>或<code>hexo d -g</code></p>
-<p>这里太长了，只截取了上传到github部分日志</p>
-<p><img src="/../images/image-20221020172108625.png" alt="image-20221020172108625"></p>
-<p>然后进入github的https服务地址查看</p>
-<p><img src="/../images/image-20221020172239257.png" alt="image-20221020172239257"></p>
-<p>文档已经在Github Pages上部署成功</p>
-
       
 
       
@@ -339,7 +242,6 @@
     <div class="article-info article-info-index">
       
 
-      
         
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
@@ -359,7 +261,6 @@
       
         
 
-      
 
       
       
@@ -570,15 +471,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hello world</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">github Pages</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hello world</a>
               </li>
              
               <li class="article-tag-list-item">
