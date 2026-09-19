@@ -1,0 +1,101 @@
+
+
+<% if (site.categories.length){ %>
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title"><%= __('categories') %></h3>
+      <style>
+      .widget-cat-tree ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+      }
+      .widget-cat-tree li {
+        margin: 6px 0;
+      }
+      .widget-cat-tree .cat-children {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        padding-left: 14px;
+        margin: 2px 0;
+      }
+      .widget-cat-tree .cat-children.open {
+        max-height: 1000px;
+      }
+      .widget-cat-tree .toggle-icon {
+        cursor: pointer;
+        display: inline-block;
+        width: 14px;
+        user-select: none;
+        color: #888;
+        font-size: 11px;
+      }
+      .widget-cat-tree .cat-link {
+        text-decoration: none;
+      }
+      .widget-cat-tree .cat-num {
+        color: #999;
+        font-size: 12px;
+        margin-left: 4px;
+      }
+      </style>
+      <div class="widget-cat-tree">
+      <%
+      // 将 Hexo 扁平分类列表转换为树（子分类通过 parent 字段挂到父分类下）
+      function listToTree(list) {
+        var map = {}, roots = [], i;
+        for (i = 0; i < list.length; i++) {
+          map[list[i]._id] = list[i];
+          list[i].children = [];
+        }
+        for (i = 0; i < list.length; i++) {
+          var node = list[i];
+          if (node.parent && map[node.parent]) map[node.parent].children.push(node);
+          else roots.push(node);
+        }
+        return roots;
+      }
+
+      // 递归渲染树形 DOM：每个分类独立 li，子分类挂在各自节点下
+      function renderTree(nodes, isChild) {
+        var html = '<ul' + (isChild ? ' class="cat-children"' : '') + '>';
+        nodes.forEach(function (cat) {
+          var hasChild = cat.children && cat.children.length > 0;
+          html += '<li>';
+          html += '<span class="toggle-icon"' + (hasChild ? '' : ' style="visibility:hidden"') + '>▶</span>';
+          html += '<a class="cat-link" href="' + url_for(cat.path) + '">' + cat.name + '</a>';
+          html += '<span class="cat-num">' + cat.length + '</span>';
+          if (hasChild) {
+            html += renderTree(cat.children, true);
+          }
+          html += '</li>';
+        });
+        html += '</ul>';
+        return html;
+      }
+
+      var tree = listToTree(site.categories.data);
+      %>
+      <%- renderTree(tree) %>
+      </div>
+      <script>
+      (function () {
+        var root = document.querySelector('.widget-cat-tree');
+        if (!root) return;
+        root.querySelectorAll('li').forEach(function (li) {
+          var child = li.querySelector(':scope > .cat-children');
+          if (!child) return; // 没有子分类，跳过
+          var icon = li.querySelector(':scope > .toggle-icon');
+          icon.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            child.classList.toggle('open');
+            icon.textContent = child.classList.contains('open') ? '▼' : '▶';
+          });
+        });
+      })();
+      </script>
+    </div>
+  </div>
+<% } %>

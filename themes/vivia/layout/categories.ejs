@@ -1,0 +1,125 @@
+<style>
+/* 分类树形区域（只作用于本页面容器，不影响侧边栏） */
+#cat-tree ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+#cat-tree li {
+  margin: 8px 0;
+}
+#cat-tree .cat-children {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding-left: 22px;
+  margin: 2px 0;
+}
+#cat-tree .cat-children.open {
+  max-height: 2000px;
+}
+#cat-tree .toggle-icon {
+  cursor: pointer;
+  display: inline-block;
+  width: 18px;
+  user-select: none;
+  color: #888;
+  font-size: 12px;
+}
+#cat-tree .cat-link {
+  text-decoration: none;
+}
+#cat-tree .cat-num {
+  color: #999;
+  font-size: 13px;
+  margin-left: 6px;
+}
+</style>
+
+<div id="cat-tree">
+<%
+// 将 Hexo 扁平分类列表转换为树（子分类通过 parent 字段挂到父分类下）
+function listToTree(list) {
+  var map = {}, roots = [], i;
+  for (i = 0; i < list.length; i++) {
+    map[list[i]._id] = list[i];
+    list[i].children = [];
+  }
+  for (i = 0; i < list.length; i++) {
+    var node = list[i];
+    if (node.parent && map[node.parent]) map[node.parent].children.push(node);
+    else roots.push(node);
+  }
+  return roots;
+}
+
+// 递归渲染树形 DOM：每个分类独立 li，子分类挂在各自节点下
+function renderTree(nodes, isChild) {
+  var html = '<ul' + (isChild ? ' class="cat-children"' : '') + '>';
+  nodes.forEach(function (cat) {
+    var hasChild = cat.children && cat.children.length > 0;
+    html += '<li>';
+    html += '<span class="toggle-icon"' + (hasChild ? '' : ' style="visibility:hidden"') + '>▶</span>';
+    html += '<a class="cat-link" href="' + url_for(cat.path) + '">' + cat.name + '</a>';
+    html += '<span class="cat-num">(' + cat.length + ')</span>';
+    if (hasChild) {
+      html += renderTree(cat.children, true);
+    }
+    html += '</li>';
+  });
+  html += '</ul>';
+  return html;
+}
+
+var tree = listToTree(site.categories.data);
+%>
+<%- renderTree(tree) %>
+</div>
+
+<div style="margin-top:30px;padding:10px;">
+  <input id="catKey" placeholder="输入关键词筛选分类" style="padding:8px 12px;width:350px;font-size:15px;" oninput="filterCat()">
+  <div style="margin:10px 0;color:#666;" id="tip"></div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // 给每个有子分类的节点绑定展开/收起
+  document.querySelectorAll('#cat-tree li').forEach(function (li) {
+    var child = li.querySelector(':scope > .cat-children');
+    if (!child) return; // 没有子分类，跳过
+    var icon = li.querySelector(':scope > .toggle-icon');
+    icon.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      child.classList.toggle('open');
+      icon.textContent = child.classList.contains('open') ? '▼' : '▶';
+    });
+  });
+});
+
+// 筛选：命中自动展开所有祖先层级
+function filterCat() {
+  var key = document.getElementById('catKey').value.toLowerCase();
+  var lis = document.querySelectorAll('#cat-tree li');
+  var hit = 0;
+  lis.forEach(function (li) {
+    var text = li.innerText.toLowerCase();
+    if (text.indexOf(key) !== -1) {
+      li.style.display = 'block';
+      hit++;
+      // 向上展开所有祖先
+      var p = li.parentElement;
+      while (p && p.tagName === 'UL' && p.classList.contains('cat-children')) {
+        p.classList.add('open');
+        var parentLi = p.parentElement;
+        var ic = parentLi.querySelector(':scope > .toggle-icon');
+        if (ic) ic.textContent = '▼';
+        p = parentLi.parentElement;
+      }
+    } else {
+      li.style.display = '';
+    }
+  });
+  document.getElementById('tip').innerText = '匹配到 ' + hit + ' 个分类';
+}
+</script>
