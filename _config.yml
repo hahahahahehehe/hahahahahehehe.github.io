@@ -61,10 +61,10 @@ ignore: null
 theme: vivia
 archive_generator:
   per_page: 0
-deploy:
-  type: git
-  repository: https://github.com/hahahahahehehe/hahahahahehehe.github.io.git
-  branch: master
+# deploy:
+#   type: git
+#   repository: https://github.com/hahahahahehehe/hahahahahehehe.github.io.git
+#   branch: master
 # 本地搜索索引，读取文章分类、标题、标签、正文
 search:
   path: search.json
